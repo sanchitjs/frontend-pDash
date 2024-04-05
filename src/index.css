@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.custom-datetime-input {
+    /* border: 1px solid #ccc;
+    border-radius: 5px; */
+    padding: 8px;
+    font-size: 14px;
+}
+
+@keyframes blinkAnimationRed {
+    0% {
+    }
+
+    50% { border: 2px solid black;
+        background-color: rgb(255, 0, 0);
+    }
+
+    100% {
+    
+    }
+}
+@keyframes blinkAnimationGreen{
+    0% {
+    }
+
+    50% { border: 2px solid black;
+        background-color: rgb(0, 255, 0);
+    }
+
+    100% {
+    
+    }
+}
+
+    .blinkgreen {
+        animation: blinkAnimationGreen 1s infinite;
+    }
+    
+    .blinkred {
+        animation: blinkAnimationRed 1s infinite;
+    }
+
+    .default{
+        border: 2px solid transparent;
+        background-color: white;
+        border-radius:0.5rem ;
+        width: 100%;
+    }
+
+    .green{
+        background-color: #00ff0b99;
+    }
+
+    .red{
+        background-color: #ff000099;
+    }
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .active{
+    /* padding: 0px 10px; */
+    background: linear-gradient(0deg,#fea9206c,transparent);
+    border-radius: 5px;
+  }
