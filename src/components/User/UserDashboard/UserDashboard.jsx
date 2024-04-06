@@ -15,7 +15,7 @@ const UserDashboard = ({ setProgress }) => {
 
   const { currUser } = useLoaderData();
 
-  const route = "http://192.168.1.9:5000";
+  const route = "http://192.168.1.6:5000";
   // const route = "https://pdash-backend.onrender.com";
 
   ////////////////////////////////////////// 
@@ -83,9 +83,9 @@ const UserDashboard = ({ setProgress }) => {
       // let CD_time = new Date(CD_year, CD_month - 1, CD_date, CD_hour, CD_min).getTime();
       // let CD_time_f = new Date(CD_year, CD_month - 1, CD_date, CD_hour, CD_min);
 
-      let lastDataTimeDate = parseInt(lastDataTime.split(' ')[0].split('-')[0]);
+      let lastDataTimeDate = parseInt(lastDataTime.split(' ')[0].split('-')[2]);
       let lastDataTimeMonth = parseInt(lastDataTime.split(' ')[0].split('-')[1]);
-      let lastDataTimeYear = parseInt('20' + lastDataTime.split(' ')[0].split('-')[2]);
+      let lastDataTimeYear = parseInt('20' + lastDataTime.split(' ')[0].split('-')[0]);
       let lastDataTimeHour = parseInt(lastDataTime.split(' ')[1].split(':')[0]);
       let lastDataTimeMinute = parseInt(lastDataTime.split(' ')[1].split(':')[1]);
       let lastDataTimeSeconds = parseInt(lastDataTime.split(' ')[1].split(':')[2]);

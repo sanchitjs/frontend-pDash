@@ -8,7 +8,7 @@ import { months } from '../../Calender/calender.js';
 
 const DailyReport = () => {
 
-  const route = "http://192.168.1.9:5000";
+  const route = "http://192.168.1.6:5000";
   // const route = "https://pdash-backend.onrender.com";
 
   const { currUser } = useLoaderData();
@@ -28,6 +28,8 @@ const DailyReport = () => {
   const [WR, setWR] = useState(null);
   const [NE, setNE] = useState(null);
   const [OE, setOE] = useState(null);
+
+  console.log(RI,WR,NE,OE,noOfDays)
 
   const setDataFromDailyReport = () => {
 
@@ -70,10 +72,10 @@ const DailyReport = () => {
       if (parseInt(key.split(' ')[0].split('-')[1]) === new Date().getMonth() + 1) {
         const val = monthlyReport[key]
         if (!(JSON.stringify(val) === '{}' && val.constructor === Object)) {
-          console.log(key)
           if (isNaN(tempRI) && isNaN(tempWR) && isNaN(tempNE) && isNaN(tempOE) && isNaN(tempNoOfDays)) {
             tempRI = tempWR = tempNE = tempOE = tempNoOfDays = 0;
           }
+          console.log(val)
           tempRI = val.RI
           tempNE += ((val.NE) ? val.NE.split(",").length : 0)
           tempOE += ((val.OE) ? val.OE.split(",").length : 0)
@@ -154,7 +156,7 @@ const DailyReport = () => {
       if (plantID !== "Plant0") {
         const res = await fetch(`${route}/get-daily-report/${plantID}`)
         const data = await res.json()
-        typeof (data) === "null" ? setDailyReport(0) : setDailyReport(data)
+        data === null ? setDailyReport(0) : setDailyReport(data)
       }
     }
     fetchDailyReport();
@@ -164,7 +166,7 @@ const DailyReport = () => {
     const fetchMonthlyReport = async () => {
       const res = await fetch(`${route}/get-monthly-report/${plantID}`)
       const data = await res.json()
-      typeof (data) === "null" ? setMonthlyReport(0) : setMonthlyReport(data)
+      data === null ? setMonthlyReport(0) : setMonthlyReport(data)
     }
     fetchMonthlyReport();
   }, [plantID])
@@ -207,7 +209,7 @@ const DailyReport = () => {
   const day = currDate.getDate();
   const month = currDate.getMonth();
   const year = currDate.getFullYear();
-  const overallEfficiency = (isNaN(WR) || isNaN(RI) || isNaN(noOfDays)) ? 0 : ((WR / (noOfDays * RI)) * 100)
+  const overallEfficiency = (isNaN(WR) || isNaN(RI) || isNaN(noOfDays)) ? 0 : Math.round((WR / (noOfDays * RI)) * 100)
 
   return (
     <div className=' h-[81vh] w-[95%] m-auto my-4'>
@@ -373,29 +375,29 @@ const DailyReport = () => {
               </div>
               <div className='grid grid-cols-2 gap-7 h-[75%]'>
                 <div className='h-full w-full bg-white flex flex-col items-center justify-center rounded-lg px-2'>
-                  <div className='text-[70px] leading-[1]'>{(isNaN(WR) || isNaN(noOfDays) || typeof (WR) === 'null' || noOfDays === 0) ? '--' : (WR / noOfDays)}</div>
+                  <div className='text-[70px] leading-[1]'>{(isNaN(WR) || isNaN(noOfDays) || WR === null || noOfDays === 0) ? '--' : Math.round(WR / noOfDays)}</div>
                   {/* <div className='text-[70px] leading-[1]'>{77}</div> */}
                   <div className='font-medium text-lg'>AVG. Working Robots</div>
                 </div>
                 <div className='h-full w-full bg-white flex flex-col items-center justify-center rounded-lg px-2'>
-                  <div className='text-[70px] leading-[1]'>{(isNaN(NE) || isNaN(OE) || isNaN(noOfDays) || typeof (NE) === 'null' || noOfDays === 0) ? "--" : (NE + OE) / noOfDays}</div>
+                  <div className='text-[70px] leading-[1]'>{(isNaN(NE) || isNaN(OE) || isNaN(noOfDays) || NE === null || noOfDays === 0) ? "--" : Math.round((NE + OE) / noOfDays)}</div>
                   {/* <div className='text-[70px] leading-[1]'>{3}</div> */}
                   <div className='font-medium text-lg'>AVG. Erroneous Robots</div>
                 </div>
                 <div className='h-full w-full bg-white flex flex-col items-center justify-center rounded-lg px-2'>
-                  <div className='text-[70px] leading-[1]'>{(isNaN(NE) || isNaN(noOfDays) || typeof (NE) === 'null' || typeof (OE) === 'null' || noOfDays === 0) ? "--" : NE / noOfDays}</div>
+                  <div className='text-[70px] leading-[1]'>{(isNaN(NE) || isNaN(noOfDays) || NE === null || OE === null || noOfDays === 0) ? "--" :Math.round(NE / noOfDays)}</div>
                   {/* <div className='text-[70px] leading-[1]'>{2}</div> */}
                   <div className='font-medium text-lg'>AVG. Robots having Network Error</div>
                 </div>
                 <div className='h-full w-full bg-white flex flex-col items-center justify-center rounded-lg px-2'>
-                  <div className='text-[70px] leading-[1]'>{(isNaN(OE) || isNaN(noOfDays) || typeof (OE) === 'null' || noOfDays === 0) ? "--" : OE / noOfDays}</div>
+                  <div className='text-[70px] leading-[1]'>{(isNaN(OE) || isNaN(noOfDays) || OE === null || noOfDays === 0) ? "--" : OE / noOfDays}</div>
                   {/* <div className='text-[70px] leading-[1]'>{1}</div> */}
                   <div className='font-medium text-lg'>AVG. Robots having Other Errors</div>
                 </div>
               </div>
             </div>
             <div className='bg-white h-full w-[60%] flex flex-col items-center justify-center py-2 rounded-lg'>
-              {(typeof (WR) === 'null' || typeof (RI) === 'null' || noOfDays === 0) ?
+              {(WR === null || RI === null || noOfDays === 0) ?
 
                 <div>Loading...</div> :
 
