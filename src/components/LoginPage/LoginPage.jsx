@@ -3,6 +3,7 @@ import { auth } from '../../firebase';
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate, Link } from 'react-router-dom';
 import { getCurrentUser, fetchUserRoleFromFirestore } from '../../auth.js';
+import arrow from '../../assets/square-arrow-down-double-stroke-rounded.svg';
 
 const LoginPage = () => {
 
@@ -97,7 +98,8 @@ const LoginPage = () => {
 
                         <Link to={"/manual"}><div className='text-lg third:text-2xl flex gap-2 items-center w-fit bg-[#fea920] py-3 px-6 hover:bg-[#fed220] transition-all duration-300 mt-3 rounded-lg cursor-pointer text-black'>
                             <div>Get Started Now!</div>
-                            <div><img src="src/assets/square-arrow-down-double-stroke-rounded.svg" className='rotate-[270deg] h-[35px]' /></div>
+                            {/* <div><img src="src/assets/square-arrow-down-double-stroke-rounded.svg" className='rotate-[270deg] h-[35px]' /></div> */}
+                            <div><img src={arrow} className='rotate-[270deg] h-[35px]' /></div>
                         </div></Link>   
                     </div>
                 </div>
