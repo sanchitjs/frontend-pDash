@@ -31,6 +31,7 @@ const DailyReport = () => {
   const [OE, setOE] = useState(null);
 
   console.log(RI,WR,NE,OE,noOfDays)
+  console.log("monthlyReport",monthlyReport)
 
   const setDataFromDailyReport = () => {
 
@@ -360,7 +361,7 @@ const DailyReport = () => {
       </div>
 
       <div className='third-div bg-[#cfcfcf] h-[55%] rounded-lg p-5 flex gap-7'>
-        {(monthlyReport === 0) ?
+        {(monthlyReport && monthlyReport === 0) ?
 
           <>
             <div className='flex h-full w-full items-center justify-center text-white'>
