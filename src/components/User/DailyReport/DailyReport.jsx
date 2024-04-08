@@ -9,8 +9,8 @@ import { months } from '../../Calender/calender.js';
 const DailyReport = () => {
 
   // const route = "http://192.168.1.6:5000";
-  const route = "https://lambent-gaufre-c69eec.netlify.app/";
-  // const route = "https://pdash-backend.onrender.com";
+  // const route = "https://lambent-gaufre-c69eec.netlify.app/";
+  const route = "https://pdash-backend.onrender.com";
 
   const { currUser } = useLoaderData();
   const [plantID, setPlantID] = useState("Plant0");
