@@ -555,7 +555,7 @@ const UserDashboard = ({ setProgress }) => {
                             <div className='flex flex-col items-end'>
                               <div className='text-sm font-semibold'>Battery Voltage</div>
                               <div className='text-3xl transition-all duration-300'>
-                                {(((robotData.BV) / (29.2)) * 100).toFixed(2) + '%'}
+                                {(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'}
                               </div>
                             </div>
                             <div className='flex flex-col items-end'>
@@ -622,7 +622,7 @@ const UserDashboard = ({ setProgress }) => {
                           <div className='flex flex-col items-end'>
                             <div className='text-sm font-semibold'>Battery Voltage</div>
                             <div className='text-3xl transition-all duration-300'>
-                              {(((robotData.BV) / (29.2)) * 100).toFixed(2) + '%'}
+                              {(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'}
                             </div>
                           </div>
                           <div className='flex flex-col items-end'>
@@ -654,8 +654,8 @@ const UserDashboard = ({ setProgress }) => {
                                 <div className='flex flex-col items-end '>
                                   <div className='text-sm font-semibold'>Battery Voltage</div>
                                   <div className='text-3xl transition-all duration-300'>
-                                    {/* <BlinkingText text={(((robotData.BV) / (29.2)) * 100).toFixed(2) + '%'} /> */}
-                                    {(((robotData.BV) / (29.2)) * 100).toFixed(2) + '%'}
+                                    {/* <BlinkingText text={(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'} /> */}
+                                    {(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'}
                                   </div>
                                 </div>
                                 <div className='flex flex-col items-end'>
@@ -700,8 +700,8 @@ const UserDashboard = ({ setProgress }) => {
                             <div className='flex flex-col items-end '>
                               <div className='text-sm font-semibold'>Battery Voltage</div>
                               <div className='text-3xl transition-all duration-300'>
-                                {/* <BlinkingText text={(((robotData.BV) / (29.2)) * 100).toFixed(2) + '%'} /> */}
-                                {(((robotData.BV) / (29.2)) * 100).toFixed(2) + '%'}
+                                {/* <BlinkingText text={(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'} /> */}
+                                {(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'}
                               </div>
                             </div>
                             <div className='flex flex-col items-end'>
