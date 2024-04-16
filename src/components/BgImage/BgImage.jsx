@@ -6,7 +6,7 @@ const BgImage = ({ children }) => {
 
   return (
     <div
-      className="bg-cover bg-center h-screen"
+      className="min-[921px]:bg-cover max-[920px]:bg-no-repeat max-[920px]:fixed max-[920px]:bg-[center_-9vh] h-screen"
       style={{ backgroundImage: bgURL }} // Set the background image using inline style
     >
       {children}

@@ -13,9 +13,9 @@ const Navbar = () => {
   
   return (
     <nav className='py-5'>
-    <div className='flex items-center justify-between mx-[250px] max-second:mx-[50px] '>
-      <img className='w-[130px] hover:cursor-pointer' src={logo}/>        
-        <ul className='flex gap-[50px] items-center text-[17px] text-white'>
+    <div className='flex items-center justify-between mx-[250px] max-second:mx-[50px] max-[768px]:mx-[20px]'>
+      <img className='w-[130px] hover:cursor-pointer max-[520px]:w-[100px]' src={logo}/>        
+        <ul className='flex gap-[50px] max-[520px]:gap-[30px] items-center text-[17px] text-white'>
             {/* <li className='flex flex-col justify-center hover:cursor-pointer' onMouseOver={()=>{setopacity1(1)}} onMouseOut={()=>{setopacity1(0)}}>
               <div className='text-[17px]'>Home</div>
               {/* {
@@ -35,11 +35,11 @@ const Navbar = () => {
             </li></Link> */}
 
             <a href="https://www.photomtechnologies.com/" target='_blank'><li className='flex flex-col justify-center hover:cursor-pointer' onMouseOver={()=>{setopacity2(1)}} onMouseOut={()=>{setopacity2(0)}}>
-              <div className='text-[17px]'>About Us</div>
-              <div className={`bg-[#fea920] ${opacity2 ? "w-[80%]" : "w-full"} m-auto h-[2px] opacity-${opacity2} transition-all duration-300`}></div>
+              <div className='text-[17px] max-[520px]:text-[13px]'>About Us</div>
+              <div className={`bg-[#fea920] ${opacity2 ? "w-[80%]" : "w-full"} m-auto h-[2px] opacity-${opacity2} transition-all duration-300 max-[1030px]:hidden`}></div>
             </li></a>
             
-            <Link to="/manual"><li><button className='hover:px-2 hover:py-[3px] mb-[4px] rounded-md hover:bg-[#fea920] hover:text-white text-white transition-all duration-300'>Get Started</button></li></Link>
+            <Link to="/manual"><li><button className='hover:px-2 hover:py-[3px] mb-[4px] rounded-md hover:bg-[#fea920] hover:text-white text-white transition-all duration-300 max-[520px]:text-[13px] max-[1030px]:'>Get Started</button></li></Link>
             {/* {((islogin) ?
               <li><button onClick={() => {setislogin(0)}} className='hover:px-2 hover:py-[3px] mb-[4px] rounded-md hover:bg-[#fea920] hover:text-white text-white transition-all duration-300'><Link to="/signup">Sign Up</Link></button></li>:
               <li><button onClick={() => {setislogin(1)}} className='hover:px-2 hover:py-[3px] mb-[4px] rounded-md hover:bg-[#fea920] hover:text-white text-white transition-all duration-300'><Link to="/">Login</Link></button></li>)

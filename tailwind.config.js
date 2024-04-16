@@ -13,6 +13,7 @@ export default {
         "14inch" : "1280px",
         "second" : "1900px",
         "third" : "2300px",
+        "new" : "1151px"
       }
     },
   },

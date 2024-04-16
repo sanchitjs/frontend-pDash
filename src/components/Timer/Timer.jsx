@@ -61,9 +61,9 @@ const Timer = ({ cd, onTimeChange }) => {
 
     return (
         <div className='bg-white px-3 rounded-xl flex gap-2 items-center justify-between max-14inch:w-full '>
-            <div className=' text-[3rem] flex items-center'>
+            <div className=' text-[3rem] flex items-center max-[768px]:text-[2.5rem]'>
                 <div>
-                    <select onChange={(e) => handleHrChange(e)} className='appearance-none outline-none cursor-pointer'>
+                    <select onChange={(e) => handleHrChange(e)} className='appearance-none bg-white outline-none cursor-pointer'>
                         {/* <option selected="selected" className='text-sm text-center font-bold bg-[#cfcfcf]'>
                             {((new Date().getHours()) % 12).toString().padStart(2, '0')}
                         </option> */}
@@ -76,7 +76,7 @@ const Timer = ({ cd, onTimeChange }) => {
                 </div>
                 <div className='pb-2'>:</div>
                 <div>
-                    <select onChange={(e) => handleMinChange(e)} className='appearance-none outline-none cursor-pointer'>
+                    <select onChange={(e) => handleMinChange(e)} className='appearance-none bg-white outline-none cursor-pointer'>
                         {/* <option selected="selected" className='text-sm text-center font-bold bg-[#cfcfcf]'>
                             {(new Date().getMinutes()).toString().padStart(2, '0')}
                         </option> */}
@@ -91,7 +91,7 @@ const Timer = ({ cd, onTimeChange }) => {
             <div className='flex flex-col gap-1 max-14inch:flex-row max-14inch:gap-3 max-14inch:mr-2'>
                 <div
                     onClick={handleColorChange1}
-                    className={`border px-2 border-black max-14inch:p-2 max-14inch:rounded-md max-14inch:text-3xl rounded-full cursor-pointer ${ampm === 'AM'
+                    className={`border px-2 border-black max-14inch:p-2 max-14inch:rounded-md max-14inch:text-3xl max-[768px]:text-lg max-[768px]:w-full flex items-center rounded-full cursor-pointer ${ampm === 'AM'
                         ? 'bg-black text-white'
                         : `bg-${color1.bg} text-${color1.text}`
                         }`}
@@ -100,7 +100,7 @@ const Timer = ({ cd, onTimeChange }) => {
                 </div>
                 <div
                     onClick={handleColorChange2}
-                    className={`border px-2 border-black max-14inch:p-2 max-14inch:rounded-md max-14inch:text-3xl rounded-full cursor-pointer ${ampm === 'PM'
+                    className={`border px-2 border-black max-14inch:p-2 max-14inch:rounded-md max-14inch:text-3xl max-[768px]:text-lg flex items-center rounded-full cursor-pointer ${ampm === 'PM'
                         ? 'bg-black text-white'
                         : `bg-${color2.bg} text-${color2.text}`
                         }`}
