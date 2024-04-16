@@ -328,7 +328,7 @@ const DailyReport = () => {
                     }}
                     strokeWidth={7}
                   >
-                    <div className='font-medium' style={{ fontSize: 18, marginTop: 120 }}>Working Robots</div>
+                    <div className='font-medium' style={{ fontSize: 18, marginTop: 80 }}>Working Robots</div>
                   </CircularProgressbarWithChildren>
                 }
               </div>
@@ -365,7 +365,7 @@ const DailyReport = () => {
                     }}
                     strokeWidth={7}
                   >
-                    <div className='font-medium' style={{ fontSize: 17, marginTop: 120 }}>Erroneous Robots</div>
+                    <div className='font-medium' style={{ fontSize: 17, marginTop: 80 }}>Erroneous Robots</div>
                   </CircularProgressbarWithChildren>
                 </>
               </div>
@@ -468,7 +468,7 @@ const DailyReport = () => {
                       }}
                       strokeWidth={7}
                     >
-                      <div className='font-medium' style={{ fontSize: 18, marginTop: 120 }}>Working Robots</div>
+                      <div className='font-medium' style={{ fontSize: 18, marginTop: 80 }}>Working Robots</div>
                     </CircularProgressbarWithChildren>
                   }
                 </div>
@@ -505,7 +505,7 @@ const DailyReport = () => {
                       }}
                       strokeWidth={7}
                     >
-                      <div className='font-medium' style={{ fontSize: 17, marginTop: 120 }}>Erroneous Robots</div>
+                      <div className='font-medium' style={{ fontSize: 17, marginTop: 80 }}>Erroneous Robots</div>
                     </CircularProgressbarWithChildren>
                   </>
                 </div>
@@ -617,8 +617,8 @@ const DailyReport = () => {
                       }}
                       strokeWidth={7}
                     >
-                      <div className='font-medium max-[490px]:hidden' style={{ fontSize: 18, marginTop: 120 }}>Working Robots</div>
-                      <div className='font-medium hidden max-[490px]:block' style={{ fontSize: 14, marginTop: 120 }}>Working Robots</div>
+                      <div className='font-medium max-[490px]:hidden' style={{ fontSize: 18, marginTop: 80 }}>Working Robots</div>
+                      <div className='font-medium hidden max-[490px]:block' style={{ fontSize: 14, marginTop: 70 }}>Working Robots</div>
                     </CircularProgressbarWithChildren>
                   }
                 </div>
@@ -655,8 +655,8 @@ const DailyReport = () => {
                       }}
                       strokeWidth={7}
                     >
-                      <div className='font-medium max-[490px]:hidden' style={{ fontSize: 17, marginTop: 120 }}>Erroneous Robots</div>
-                      <div className='font-medium hidden max-[490px]:block' style={{ fontSize: 14, marginTop: 120 }}>Erroneous Robots</div>
+                      <div className='font-medium max-[490px]:hidden' style={{ fontSize: 17, marginTop: 80 }}>Erroneous Robots</div>
+                      <div className='font-medium hidden max-[490px]:block' style={{ fontSize: 14, marginTop: 70 }}>Erroneous Robots</div>
                     </CircularProgressbarWithChildren>
                   </>
                 </div>
