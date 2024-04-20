@@ -615,7 +615,7 @@ const UserDashboard = ({ setProgress }) => {
       <div className='w-[95%] mx-auto mb-4 flex min-[2618px]:justify-between min-[1151px]:gap-3 relative'>
         <div className='w-[80%] max-[1150px]:w-full'>
           {loading ?
-            <CardsSkeleton cards={20} /> :
+            <CardsSkeleton cards={7} /> :
             <div className='left w-full mb-7 max-[768px]:mb-6 flex flex-col items-center gap-3 min-[2618px]:w-[100%] relative overflow-y-auto max-[1130px]:w-full'>
               {
                 <>
@@ -629,7 +629,7 @@ const UserDashboard = ({ setProgress }) => {
                 </>
               }
 
-              <Suspense fallback={<CardsSkeleton cards={20} />} >
+              <Suspense fallback={<CardsSkeleton cards={7} />} >
                 <CardMapping allRobotData={allRobotData} robotStatus={robotStatus} robotError={robotError} ONStatus={ONStatus} displayError={displayError} networkError={networkError} />
               </Suspense>
                 {/* <><div
