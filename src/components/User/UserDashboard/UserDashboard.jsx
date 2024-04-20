@@ -629,7 +629,7 @@ const UserDashboard = ({ setProgress }) => {
                 </>
               }
 
-              <Suspense fallback={<div>Loading...</div>} >
+              <Suspense fallback={<CardsSkeleton cards={20} />} >
                 <CardMapping allRobotData={allRobotData} robotStatus={robotStatus} robotError={robotError} ONStatus={ONStatus} displayError={displayError} networkError={networkError} />
               </Suspense>
                 {/* <><div
