@@ -2,6 +2,7 @@ import React from 'react'
 import BlinkingText from '../BlinkingText/BlinkingText'
 import battery from '../../assets/battery.png'
 import timer from '../../assets/stop-watch-stroke-rounded.svg'
+import arrow from '../../../assets/next.png'
 
 const CardMapping = ({allRobotData,robotStatus,robotError,ONStatus,displayError,networkError}) => {
   return (

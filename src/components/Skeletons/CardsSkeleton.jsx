@@ -19,6 +19,9 @@ const CardsSkeleton = ({ cards }) => {
                 </div>
             </div>
         ))
+        // <div className='w-full mb-[10px] h-[90px]'>
+        //     <Skeleton count={cards} height={80} />
+        // </div>
     )
 }
 

@@ -120,19 +120,42 @@ const UserDashboard = ({ setProgress }) => {
     return [statusOfRobots, errorOfRobots, networkErrorOfRobots];
   };
 
-  const fetchRobotList = async () => {
+  // const fetchRobotList = async () => {
+  //   if (plantID !== "Plant0") {
+  //     console.log("fetching robot list");
+  //     const res = await fetch(`${route}/robot-list/${plantID}`);
+  //     const data = await res.json();
+  //     setRobotList(data);
+  //   }
+  // }
+  
+  const fetchRobotList = async (pageNo) => {
     if (plantID !== "Plant0") {
       console.log("fetching robot list");
-      const res = await fetch(`${route}/robot-list/${plantID}`);
+      const res = await fetch(`${route}/robot-list/${plantID}?page=${pageNo}`);
       const data = await res.json();
       setRobotList(data);
     }
   }
 
-  const fetchAllRobotData = async () => {
+  // const fetchAllRobotData = async () => {
+  //   if (plantID !== "Plant0") {
+  //     console.log("fetching all robot data")
+  //     const res = await fetch(`${route}/all-robot-data/${plantID}`);
+  //     const data = await res.json();
+  //     let dataArr = Object.entries(data);
+  //     dataArr.sort((a, b) => (a[0]).localeCompare(b[0], 'en', { numeric: true }));
+  //     const [keyObj, dataObj] = seperateDataAndKeysFromAPIRobotData(dataArr);
+  //     setAllRobotKeys(keyObj);
+  //     setAllRobotData(dataObj);
+  //     // setLoading(false);
+  //   }
+  // };
+  
+  const fetchAllRobotData = async (pageNo) => {
     if (plantID !== "Plant0") {
       console.log("fetching all robot data")
-      const res = await fetch(`${route}/all-robot-data/${plantID}`);
+      const res = await fetch(`${route}/all-robot-data/${plantID}?page=${pageNo}`);
       const data = await res.json();
       let dataArr = Object.entries(data);
       dataArr.sort((a, b) => (a[0]).localeCompare(b[0], 'en', { numeric: true }));
@@ -215,8 +238,8 @@ const UserDashboard = ({ setProgress }) => {
   useEffect(() => {
     const fetchData = async () => {
       // setProgress(50)
-      await fetchAllRobotData();
-      await fetchRobotList();
+      await fetchAllRobotData(0);
+      await fetchRobotList(0);
       // setProgress(100)
     };
     fetchData();
@@ -616,8 +639,9 @@ const UserDashboard = ({ setProgress }) => {
         <div className='w-[80%] max-[1150px]:w-full'>
           {loading ?
             <CardsSkeleton cards={7} /> :
+            // <></> :
             <div className='left w-full mb-7 max-[768px]:mb-6 flex flex-col items-center gap-3 min-[2618px]:w-[100%] relative overflow-y-auto max-[1130px]:w-full'>
-              {
+              {/* {
                 <>
                   <div className={`text-3xl ${(loading) ? "block" : "hidden"} flex items-center `}>
                     <svg className="animate-spin -ml-1 mr-3 h-6 w-6 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -627,12 +651,12 @@ const UserDashboard = ({ setProgress }) => {
                     Loading...
                   </div>
                 </>
-              }
+              } */}
 
-              <Suspense fallback={<CardsSkeleton cards={7} />} >
+              <Suspense  >
                 <CardMapping allRobotData={allRobotData} robotStatus={robotStatus} robotError={robotError} ONStatus={ONStatus} displayError={displayError} networkError={networkError} />
               </Suspense>
-                {/* <><div
+              {/* <><div
 
               className={`cards bg-[#cfcfcf] w-[100%] flex transition-colors duration-300 justify-between items-center rounded-lg px-4 py-5 max-[550px]:px-3 max-[550px]:py-2`}
             >
