@@ -654,7 +654,7 @@ const UserDashboard = ({ setProgress }) => {
               } */}
 
               <Suspense  >
-                <CardMapping allRobotData={allRobotData} robotStatus={robotStatus} robotError={robotError} ONStatus={ONStatus} displayError={displayError} networkError={networkError} />
+                <CardMapping allRobotData={allRobotData} robotStatus={robotStatus} robotError={robotError} ONStatus={ONStatus} displayError={displayError} networkError={networkError} setDisplayError={setDisplayError} />
               </Suspense>
               {/* <><div
 

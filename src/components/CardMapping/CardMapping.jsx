@@ -4,7 +4,7 @@ import battery from '../../assets/battery.png'
 import timer from '../../assets/stop-watch-stroke-rounded.svg'
 import arrow from '../../assets/next.png'
 
-const CardMapping = ({allRobotData,robotStatus,robotError,ONStatus,displayError,networkError}) => {
+const CardMapping = ({allRobotData,robotStatus,robotError,ONStatus,displayError,networkError,setDisplayError}) => {
   return (
     Object.entries(allRobotData).map(([robotID, robotData]) => (
 
