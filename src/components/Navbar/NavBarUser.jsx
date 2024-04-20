@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import logo from './assets/logo2.png'
 import { NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from "../../context/AuthContext.jsx"
@@ -30,6 +30,21 @@ const NavbarUser = () => {
         setMenuVisible(!menuVisible)
     }
 
+    const floatingNavRef = useRef(null);
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (floatingNavRef.current && !floatingNavRef.current.contains(event.target)) {
+          setMenuVisible(false);
+        }
+      };
+  
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [floatingNavRef]);
+
     return (
         <>
             <nav className='py-5 bg-black text-white sticky top-0 z-20 h-[90px] max-[768px]:h-[80px] '>
@@ -40,7 +55,7 @@ const NavbarUser = () => {
                     {
                          (
                             <div className={`absolute bg-[#000000c1] w-[100vw] top-0 left-0 h-[100vh] hidden max-[1000px]:${menuVisible ? 'block' : 'hidden'}`}>
-                                <div className={`bg-black h-full w-fit pt-16 px-16 absolute transition-all duration-300 ${menuVisible ? 'right-0' : 'right-[-100%]'}`}>
+                                <div ref={floatingNavRef} className={`bg-black h-full w-fit pt-16 px-16 absolute transition-all duration-300 ${menuVisible ? 'right-0' : 'right-[-100%]'}`}>
                                     <div onClick={handleMenuVisibility} className=' cursor-pointer invert rounded-full absolute top-0 right-0 w-fit m-5'>
                                         <img src={close} className='size-6' />
                                     </div>

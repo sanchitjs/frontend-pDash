@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { lazy, useState, Suspense } from 'react'
 import { useEffect, useRef } from 'react'
 import { useParams, useLoaderData } from 'react-router-dom';
 import 'react-datetime-picker/dist/DateTimePicker.css';
@@ -15,6 +15,14 @@ import battery from '../../../assets/battery.png'
 import timer from '../../../assets/stop-watch-stroke-rounded.svg'
 import pastTime from '../../../assets/time-past.png'
 import arrow from '../../../assets/next.png'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import TopBar from '../../Skeletons/TopBar.jsx';
+import CardsSkeleton from '../../Skeletons/CardsSkeleton.jsx';
+import CalenderSkeleton from '../../Skeletons/CalenderSkeleton.jsx';
+// import CardMapping from '../../CardMapping/CardMapping.jsx';
+
+const CardMapping = lazy(() => import('../../CardMapping/CardMapping.jsx'))
 
 const UserDashboard = ({ setProgress }) => {
 
@@ -567,292 +575,64 @@ const UserDashboard = ({ setProgress }) => {
 
   return (
     <div className='mx-auto'>
-
       <div className='flex justify-between w-[100%] mx-auto px-[3vw] items-center sticky top-[90px] z-10 bg-white pt-4 pb-2 max-[768px]:top-[80px] max-[768px]:pt-2'>
-        <div className='max-[550px]:flex flex-col'>
-          {/* <div className='flex items-center justify-between gap-10'> */}
-          <div className='leading-tight max-[600px]:text-2xl max-[485px]:text-xl text-3xl'>{plantName}</div>
-          {/* <div onClick={handleRightVisibility} className='bg-[#fea920] text-center py-2 px-4 min-[1151px]:hidden max-new:py-4 max-new:px-6 rounded-lg cursor-pointer max-[550px]:px-1 '>Schedule Robots</div> */}
-          {/* </div> */}
-          <div className='hidden max-[600px]:text-sm max-[485px]:text-md max-[485px]:font-semibold max-new:block'>
-            <div className='flex items-center gap-1'>
-              <span className='font-medium max-[485px]:hidden'>{`Scheduled Time:`}</span>
-              <img src={pastTime} className='size-[15px] hidden max-[485px]:inline-block' />
-              {
-                (typeof (CD.DD) === 'undefined') ?
-                  <span>Loading...</span>
-                  : <span>{`${CD.DD} ${months[CD.MM - 1]} ${CD.YY} - ${CD.H > 12 ? CD.H - 12 : CD.H === "00" ? 12 : CD.H}:${CD.M} ${CD.H >= 12 ? "PM" : "AM"} `}</span>
-              }
+        {loading ?
+          <TopBar height={35} /> :
+          <>
+            <div className='max-[550px]:flex flex-col'>
+              {/* <div className='flex items-center justify-between gap-10'> */}
+              <div className='leading-tight max-[600px]:text-2xl max-[485px]:text-xl text-3xl'>{plantName}</div>
+              {/* <div onClick={handleRightVisibility} className='bg-[#fea920] text-center py-2 px-4 min-[1151px]:hidden max-new:py-4 max-new:px-6 rounded-lg cursor-pointer max-[550px]:px-1 '>Schedule Robots</div> */}
+              {/* </div> */}
+              <div className='hidden max-[600px]:text-sm max-[485px]:text-md max-[485px]:font-semibold max-new:block'>
+                <div className='flex items-center gap-1'>
+                  <span className='font-medium max-[485px]:hidden'>{`Scheduled Time:`}</span>
+                  <img src={pastTime} className='size-[15px] hidden max-[485px]:inline-block' />
+                  {
+                    (typeof (CD.DD) === 'undefined') ?
+                      // <span>Loading...</span>
+                      <Skeleton />
+                      : <span>{`${CD.DD} ${months[CD.MM - 1]} ${CD.YY} - ${CD.H > 12 ? CD.H - 12 : CD.H === "00" ? 12 : CD.H}:${CD.M} ${CD.H >= 12 ? "PM" : "AM"} `}</span>
+                  }
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className='flex gap-4 min-[1151px]:mr-3 items-center'>
-          <div className='flex gap-2 max-new:hidden'>
-            <div className='font-medium '>{`Scheduled Time:`}</div>
-            {
-              (typeof (CD.DD) === 'undefined') ?
-                <div>Loading...</div>
-                : <div>{`${CD.DD} ${months[CD.MM - 1]} ${CD.YY} - ${CD.H > 12 ? CD.H - 12 : CD.H === "00" ? 12 : CD.H}:${CD.M} ${CD.H >= 12 ? "PM" : "AM"} `}</div>
-            }
-          </div>
-          <div onClick={handleRightVisibility} className='bg-[#fea920] text-center py-2 px-4 min-[1151px]:hidden max-new:py-4 max-new:px-6 rounded-lg cursor-pointer max-[550px]:px-2 max-[550px]:text-sm max-[485px]:py-3'>Configure Robots</div>
-        </div>
+            <div className='flex gap-4 min-[1151px]:mr-3 items-center'>
+              <div className='flex gap-2 max-new:hidden'>
+                <div className='font-medium '>{`Scheduled Time:`}</div>
+                {
+                  (typeof (CD.DD) === 'undefined') ?
+                    <span>Loading...</span>
+                    : <div>{`${CD.DD} ${months[CD.MM - 1]} ${CD.YY} - ${CD.H > 12 ? CD.H - 12 : CD.H === "00" ? 12 : CD.H}:${CD.M} ${CD.H >= 12 ? "PM" : "AM"} `}</div>
+                }
+              </div>
+              <div onClick={handleRightVisibility} className='bg-[#fea920] text-center py-2 px-4 min-[1151px]:hidden max-new:py-4 max-new:px-6 rounded-lg cursor-pointer max-[550px]:px-2 max-[550px]:text-sm max-[485px]:py-3'>Configure Robots</div>
+            </div>
+          </>
+        }
       </div>
 
       <div className='w-[95%] mx-auto mb-4 flex min-[2618px]:justify-between min-[1151px]:gap-3 relative'>
         <div className='w-[80%] max-[1150px]:w-full'>
-
-          <div className='left w-full mb-7 max-[768px]:mb-6 flex flex-col items-center gap-3 min-[2618px]:w-[100%] relative overflow-y-auto max-[1130px]:w-full'>
-            {
-              <>
-                <div className={`text-3xl ${(loading) ? "block" : "hidden"} flex items-center `}>
-                  <svg className="animate-spin -ml-1 mr-3 h-6 w-6 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Loading...
-                </div>
-              </>
-            }
-
-            {!loading && Object.entries(allRobotData).map(([robotID, robotData]) => (
-
-              ((!robotStatus[robotID])) ?
+          {loading ?
+            <CardsSkeleton cards={20} /> :
+            <div className='left w-full mb-7 max-[768px]:mb-6 flex flex-col items-center gap-3 min-[2618px]:w-[100%] relative overflow-y-auto max-[1130px]:w-full'>
+              {
                 <>
-                  <div
-                    className={`cards bg-[#cfcfcf] w-[100%] flex transition-colors duration-300 ${!displayError[robotID] ? 'py-3' : 'pb-0 pt-3'} justify-between items-center rounded-lg  max-[550px]:px-2 max-[550px]:py-2`}
-                  >
-                    <div className='flex-col w-full '>
-                      <div className='flex justify-between items-center rounded-lg px-4 max-[550px]:px-1'>
-                        <div>
-                          <div className='text-xl max-[400px]:text-[17px]'>{`Robot ${parseInt(robotID.slice(1))}`}</div>
-                          <div className='flex gap-1 min-[768px]:hidden'>
-                            <div className='flex items-center gap-2'>
-                              <img src={battery} className='size-5 max-[550px]:size-4' />
-                              <div className='text-lg max-[550px]:text-sm transition-all duration-300'>
-                                {(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'}
-                              </div>
-                            </div>
-                            <div className='font-medium '>|</div>
-                            <div className='flex items-center gap-2'>
-                              <img src={timer} className='size-6 max-[550px]:size-4' />
-                              <div className='text-lg max-[550px]:text-sm flex mt-[1px] items-center transition-all duration-300'>
-                                {`${Math.floor(robotData.OT / 60)}`}
-                                <span className='text-lg max-[550px]:text-sm'>mins</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className='flex items-center'>
-                          <div className='flex gap-4 max-[768px]:hidden'>
-                            <div className='flex flex-col items-end'>
-                              <div className='text-sm font-semibold'>Battery Voltage</div>
-                              <div className='text-3xl transition-all duration-300'>
-                                {(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'}
-                              </div>
-                            </div>
-                            <div className='flex flex-col items-end'>
-                              <div className='text-sm font-semibold'>Operated Time</div>
-                              <div className='text-3xl'>
-                                {`${Math.floor(robotData.OT / 60)}`}
-                                <span className='text-[25px]'>mins</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div>
-                            {(robotError[robotID]) ?
-                              // <div onMouseEnter={() => { setDisplayError(prev => ({ ...prev, [robotID]: 1 })) }} onMouseLeave={() => { setDisplayError(prev => ({ ...prev, [robotID]: 0 })) }} className='bg-[rgb(255,0,0)] text-white border-[1px] shadow-[0_0px_20px_1px_rgba(0,0,0,0.29)] cursor-pointer px-4 py-1 ml-3 flex items-center gap-2 rounded-md text-2xl w-fit min-h-[60%]'>
-                              <div onClick={() => { setDisplayError(prev => ({ ...prev, [robotID]: !prev[robotID] })) }} className='bg-[rgb(255,0,0)] text-white border-[1px] shadow-[0_0px_20px_1px_rgba(0,0,0,0.29)] cursor-pointer px-4 py-1 max-[550px]:px-2 max-[550px]:py-3 max-[550px]:gap-1 ml-3 flex items-center gap-2 rounded-md text-2xl w-fit min-h-[60%]'>
-                                <span className='max-[550px]:text-sm'>Errors</span>
-                                <span className={`invert size-6 max-[550px]:size-4 ${displayError[robotID] ? "rotate-[270deg]" : "rotate-90"} transition-all duration-300`}><img src={arrow}></img></span>
-                              </div> :
-                              <div></div>
-                            }
-                          </div>
-                          {
-                            (ONStatus[robotID] == 'connecting') ?
-                              <>
-                                <div className={`text-xl flex items-center ml-3`}>
-                                  <svg className="animate-spin -ml-1 mr-1 h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                  </svg>
-                                  <span className='max-[768px]:hidden'>Connecting...</span>
-                                </div>
-                              </> :
-                              (ONStatus[robotID] === 'null') ?
-                                <div className='flex gap-4 items-center'>
-                                  <div onClick={() => handleONChange(robotID)} className={`cursor-pointer bg-[#ffffff] shadow-[0_0px_20px_1px_rgba(0,0,0,0.29)] ml-3  px-4 py-1 rounded-md hover:bg-black hover:text-white hover:transition-all hover:duration-300 text-2xl max-[550px]:px-3 max-[550px]:text-[18px] max-[550px]:py-[7px]`}>ON</div>
-                                </div> :
+                  <div className={`text-3xl ${(loading) ? "block" : "hidden"} flex items-center `}>
+                    <svg className="animate-spin -ml-1 mr-3 h-6 w-6 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Loading...
+                  </div>
+                </>
+              }
 
-                                (ONStatus[robotID] === 'disable') ?
-                                  <div className='flex gap-4 items-center'>
-                                    <div className="cursor-not-allowed bg-[#ffffff] shadow-[0_0px_20px_1px_rgba(0,0,0,0.29)] ml-3  px-4 py-1 rounded-md text-2xl max-[550px]:text-[18px] max-[550px]:py-[7px]">ON</div>
-                                  </div> : <div></div>
-                          }
-                        </div>
-                      </div>
-                      <div className={`flex justify-around rounded-md gap-3 relative transition-all duration-300 ${!displayError[robotID] ? 'opacity-0 h-0' : 'opacity-1 mt-2 h-fit'}`}>
-                        {/* <div className='absolute top-[-10px] rotate-45 right-10 size-5 bg-white z-0'></div> */}
-                        <div className={`border-[1px] w-full py-1 flex justify-center items-center px-1 text-center max-[550px]:text-sm rounded-md ${!displayError[robotID] ? 'opacity-0 h-0 p-0' : 'opacity-1'} ${robotError[robotID] === 1 ? 'bg-[rgb(255,0,0)] border-white text-white' : 'text-[#00000053] border-[#00000053]'}`}>Low Battery</div>
-                        <div className={`border-[1px] w-full py-1 flex justify-center items-center px-1 text-center max-[550px]:text-sm rounded-md ${!displayError[robotID] ? 'opacity-0 h-0 p-0' : 'opacity-1'} ${robotError[robotID] === 2 ? 'bg-[rgb(255,0,0)] border-white text-white' : 'text-[#00000053] border-[#00000053]'}`}>Brush OC</div>
-                        <div className={`border-[1px] w-full py-1 flex justify-center items-center px-1 text-center max-[550px]:text-sm rounded-md ${!displayError[robotID] ? 'opacity-0 h-0 p-0' : 'opacity-1'} ${robotError[robotID] === 3 ? 'bg-[rgb(255,0,0)] border-white text-white' : 'text-[#00000053] border-[#00000053]'}`}>Wheel OC</div>
-                        <div className={`border-[1px] w-full py-1 flex justify-center items-center px-1 text-center max-[550px]:text-sm rounded-md ${!displayError[robotID] ? 'opacity-0 h-0 p-0' : 'opacity-1'} ${robotError[robotID] === 4 ? 'bg-[rgb(255,0,0)] border-white text-white' : 'text-[#00000053] border-[#00000053]'}`}>Robot Stuck</div>
-                      </div>
-                    </div>
-                  </div></> :
-                ((robotError[robotID] == 0) && (networkError[robotID] == 0)) ?
-                  <BlinkingText
-                    key={robotID}
-                    data={{ BV: robotData.BV, OT: robotData.OT }}
-                    color={"green"}
-                    childElement={
-                      <div
-                        key={robotID}
-                        className={`cards  w-[100%] flex transition-colors duration-300 justify-between items-center rounded-lg px-4 py-3 max-[550px]:px-3 max-[550px]:py-1`}
-                      >
-                        <div className='text-xl max-[400px]:text-[17px]'>{`Robot ${parseInt(robotID.slice(1))}`}</div>
-                        <div className='flex gap-4'>
-                          <div className='flex flex-col items-end'>
-                            <div className='text-sm font-semibold max-[495px]:text-[12px]'>Battery Voltage</div>
-                            <div className='text-3xl transition-all duration-300 max-[495px]:text-[25px]'>
-                              {(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'}
-                            </div>
-                          </div>
-                          <div className='flex flex-col items-end'>
-                            <div className='text-sm font-semibold max-[495px]:text-[12px]'>Operational Time</div>
-                            <div className='text-3xl transition-all duration-300 max-[495px]:text-[25px]'>
-                              {/* <BlinkingText text={`${robotData.OT}s`} /> */}
-                              {`${Math.floor(robotData.OT / 60)}`}
-                              <span className='text-[25px] max-[495px]:text-[20px]'>mins</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    }
-                  /> :
-                  (!networkError[robotID]) ?
-                    <div className='w-full flex gap-3 transition-all duration-300'>
-                      <BlinkingText
-                        key={robotID}
-                        data={{ BV: robotData.BV, OT: robotData.OT }}
-                        color={"red"}
-                        childElement={
-                          <div>
-                            <div
-                              key={robotID}
-                              className={`cards w-[100%] flex transition-all duration-300 justify-between items-center rounded-lg px-4 py-3 max-[550px]:px-3 max-[550px]:py-2`}
-                            >
-                              <div className='flex flex-col'>
-                                <div className='text-xl max-[400px]:text-[17px]'>{`Robot ${parseInt(robotID.slice(1))}`}</div>
-                                <div className='flex gap-1 min-[768px]:hidden'>
-                                  <div className='flex items-center gap-2'>
-                                    <img src={battery} className='size-5 max-[550px]:size-4' />
-                                    <div className='text-lg max-[550px]:text-sm transition-all duration-300'>
-                                      {(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'}
-                                    </div>
-                                  </div>
-                                  <div className='font-medium'>|</div>
-                                  <div className='flex items-center gap-2'>
-                                    <img src={timer} className='size-6 max-[550px]:size-4' />
-                                    <div className='text-lg max-[550px]:text-sm flex mt-[1px] items-center transition-all duration-300'>
-                                      {`${Math.floor(robotData.OT / 60)}`}
-                                      <span className='text-lg max-[550px]:text-sm'>mins</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <><div className='flex gap-4'>
-                                <div className='flex flex-col items-end  max-[768px]:hidden'>
-                                  <div className='text-sm font-semibold'>Battery Voltage</div>
-                                  <div className='text-3xl transition-all duration-300'>
-                                    {/* <BlinkingText text={(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'} /> */}
-                                    {(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'}
-                                  </div>
-                                </div>
-                                <div className='flex flex-col items-end max-[768px]:hidden'>
-                                  <div className='text-sm font-semibold'>Operational Time</div>
-                                  <div className='text-3xl'>
-                                    {/* <BlinkingText text={`${robotData.OT}s`} /> */}
-                                    {`${Math.floor(robotData.OT / 60)}`}
-                                    <span className='text-[25px]'>mins</span>
-                                  </div>
-                                </div>
-                                <div className='flex gap-4 items-center'>
-                                  {/* <div onMouseEnter={() => { setDisplayError(prev => ({ ...prev, [robotID]: 1 })) }} onMouseLeave={() => { setDisplayError(prev => ({ ...prev, [robotID]: 0 })) }} className='bg-[rgb(255,0,0)] text-white border-[1px] shadow-[0_0px_20px_1px_rgba(0,0,0,0.29)] cursor-pointer px-4 py-1 ml-3 flex items-center gap-2 rounded-md text-2xl w-full min-h-[60%]'> */}
-                                  <div onClick={() => { setDisplayError(prev => ({ ...prev, [robotID]: !prev[robotID] })) }} className='bg-[rgb(255,0,0)] text-white border-[1px] shadow-[0_0px_20px_1px_rgba(0,0,0,0.29)] cursor-pointer px-4 py-1 max-[550px]:px-3 max-[550px]:py-3 max-[550px]:gap-1 ml-3 flex items-center gap-2 rounded-md text-2xl w-fit min-h-[60%]'>
-                                    <span className='max-[550px]:text-sm'>Errors</span>
-                                    <span className={`invert size-6 max-[550px]:size-4 ${displayError[robotID] ? "rotate-[270deg]" : "rotate-90"} transition-all duration-300`}><img src={arrow}></img></span>
-                                  </div>
-                                </div>
-                              </div>
-                              </>
-                            </div>
-                            <div className={`flex justify-around rounded-md gap-3  relative transition-all duration-300 ${!displayError[robotID] ? 'opacity-0 px-2 h-0' : 'opacity-1 mb-2 h-fit px-2'}`}>
-                              {/* <div className='absolute top-[-10px] rotate-45 right-10 size-5 bg-white z-0'></div> */}
-                              <div className={`border-[1px] w-full py-1 flex justify-center items-center px-1 text-center max-[550px]:text-sm rounded-md ${!displayError[robotID] ? 'opacity-0 h-0 p-0' : 'opacity-1'} ${robotError[robotID] === 1 ? 'bg-[rgb(255,0,0)] border-white text-white' : 'text-[#00000053] border-[#00000053]'}`}>Low Battery</div>
-                              <div className={`border-[1px] w-full py-1 flex justify-center items-center px-1 text-center max-[550px]:text-sm rounded-md ${!displayError[robotID] ? 'opacity-0 h-0 p-0' : 'opacity-1'} ${robotError[robotID] === 2 ? 'bg-[rgb(255,0,0)] border-white text-white' : 'text-[#00000053] border-[#00000053]'}`}>Brush OC</div>
-                              <div className={`border-[1px] w-full py-1 flex justify-center items-center px-1 text-center max-[550px]:text-sm rounded-md ${!displayError[robotID] ? 'opacity-0 h-0 p-0' : 'opacity-1'} ${robotError[robotID] === 3 ? 'bg-[rgb(255,0,0)] border-white text-white' : 'text-[#00000053] border-[#00000053]'}`}>Wheel OC</div>
-                              <div className={`border-[1px] w-full py-1 flex justify-center items-center px-1 text-center max-[550px]:text-sm rounded-md ${!displayError[robotID] ? 'opacity-0 h-0 p-0' : 'opacity-1'} ${robotError[robotID] === 4 ? 'bg-[rgb(255,0,0)] border-white text-white' : 'text-[#00000053] border-[#00000053]'}`}>Robot Stuck</div>
-                            </div>
-                          </div>
-
-                        } />
-                    </div> :
-                    <BlinkingText
-                      key={robotID}
-                      data={{ BV: robotData.BV, OT: robotData.OT }}
-                      color={"red"}
-                      childElement={
-                        <div
-                          key={robotID}
-                          className={`cards w-[100%] flex transition-colors duration-300 justify-between items-center rounded-lg px-4 py-3 max-[550px]:px-3 max-[550px]:py-2`}
-                        >
-                          <div className='flex flex-col'>
-                            <div className='text-xl max-[400px]:text-[17px]'>{`Robot ${parseInt(robotID.slice(1))}`}</div>
-                            <div className='flex gap-1 min-[768px]:hidden'>
-                              <div className='flex items-center gap-2'>
-                                <img src={battery} className='size-5 max-[550px]:size-4' />
-                                <div className='text-lg max-[550px]:text-sm transition-all duration-300'>
-                                  {(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'}
-                                </div>
-                              </div>
-                              <div className='font-medium mb-[3px]'>|</div>
-                              <div className='flex items-center gap-2'>
-                                <img src={timer} className='size-6 max-[550px]:size-4' />
-                                <div className='text-lg max-[550px]:text-sm flex mt-[1px] items-center transition-all duration-300'>
-                                  {`${Math.floor(robotData.OT / 60)}`}
-                                  <span className='text-lg max-[550px]:text-sm'>mins</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className='flex items-center'>
-                            <div className='flex gap-4 '>
-                              <div className='flex flex-col items-end max-[768px]:hidden '>
-                                <div className='text-sm font-semibold'>Battery Voltage</div>
-                                <div className='text-3xl transition-all duration-300'>
-                                  {/* <BlinkingText text={(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'} /> */}
-                                  {(((robotData.BV - 21) / (29.2 - 21)) * 100).toFixed(2) + '%'}
-                                </div>
-                              </div>
-                              <div className='flex flex-col items-end max-[768px]:hidden'>
-                                <div className='text-sm font-semibold'>Operational Time</div>
-                                <div className='text-3xl'>
-                                  {/* <BlinkingText text={`${robotData.OT}s`} /> */}
-                                  {`${Math.floor(robotData.OT / 60)}`}
-                                  <span className='text-[25px]'>mins</span>
-                                </div>
-                              </div>
-                              <div className='flex gap-4 items-center'>
-                                <div className='bg-[rgb(255,0,0)] text-white border-[1px] shadow-[0_0px_20px_1px_rgba(0,0,0,0.29)] text-center px-3 py-1 ml-3 rounded-md text-2xl min-h-[60%] max-[550px]:text-sm max-[550px]:py-3'>Network Error</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      } />
-            ))}
-            {/* <><div
+              <Suspense fallback={<div>Loading...</div>} >
+                <CardMapping allRobotData={allRobotData} robotStatus={robotStatus} robotError={robotError} ONStatus={ONStatus} displayError={displayError} networkError={networkError} />
+              </Suspense>
+                {/* <><div
 
               className={`cards bg-[#cfcfcf] w-[100%] flex transition-colors duration-300 justify-between items-center rounded-lg px-4 py-5 max-[550px]:px-3 max-[550px]:py-2`}
             >
@@ -951,7 +731,8 @@ const UserDashboard = ({ setProgress }) => {
                 <div className='bg-[#ffffff] shadow-[0_0px_20px_1px_rgba(0,0,0,0.29)] px-4 py-1 rounded-md cursor-pointer hover:bg-black hover:text-white hover:transition-all hover:duration-300 text-2xl'>ON</div>
               </div>
             </div></> */}
-          </div>
+            </div>
+          }
         </div>
 
         {
@@ -991,12 +772,15 @@ const UserDashboard = ({ setProgress }) => {
           )
         }
         <div className={`right sticky top-[152px] h-fit max-w-[900px] bg-[#cfcfcf]  flex flex-col mb-7 pb-4 items-center rounded-xl max-[1150px]:hidden transition-all duration-300`}>
-          <Calender onDateChange={handleDateChange} />
-          <div className='w-[100%] px-6'>
-            <div className='flex justify-between items-end gap-2'>
-              {/* <div className='text-xl mb-1 ml-1'>Set Time:</div> */}
-              {/* <div className='my-3 w-fit px-2 py-2 rounded-lg cursor-pointer bg-[#fea920] hover:bg-[#fed220] transition-all duration-100'>Stop Schedule Daily</div> */}
-              {/* <div className='flex items-center justify-between'>
+          {loading ?
+            <CalenderSkeleton /> :
+            <>
+              <Calender onDateChange={handleDateChange} />
+              <div className='w-[100%] px-6'>
+                <div className='flex justify-between items-end gap-2'>
+                  {/* <div className='text-xl mb-1 ml-1'>Set Time:</div> */}
+                  {/* <div className='my-3 w-fit px-2 py-2 rounded-lg cursor-pointer bg-[#fea920] hover:bg-[#fed220] transition-all duration-100'>Stop Schedule Daily</div> */}
+                  {/* <div className='flex items-center justify-between'>
                 <div className='my-3 flex items-center gap-2 w-fit bg-white px-2 py-1 rounded-lg'>
                   {( checkedScheduleDaily == null) ?
                     <svg className="animate-spin ml-[2px] mb-[1px] h-3 w-3 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -1010,17 +794,19 @@ const UserDashboard = ({ setProgress }) => {
                   <div className='font-semibold text-sm'>Schedule Daily</div>
                 </div>
               </div> */}
-            </div>
-          </div>
-          <div className='flex justify-between items-center w-full px-6 gap-3 mt-4 max-14inch:flex-col'>
-            <Timer cd={CD} onTimeChange={handleTimeChange} />
-            <div onClick={handleSendTime} className='bg-[#fea920] hover:bg-[#fed220] py-3 px-5 transition-all duration-100 w-fit text-center rounded-xl text-lg cursor-pointer min-[2660px]:py-[27px] min-[2408px]:px-5 max-14inch:text-2xl max-14inch:w-full'>
-              Schedule Robots
-            </div>
-          </div>
-          <div onClick={handleStopRobots} className='bg-[#fea920] hover:bg-[#fed220] py-[27px] mt-4 mx-3 transition-all duration-300 w-[90%] text-center rounded-xl text-2xl cursor-pointer max-14inch:py-3'>
-            Stop all Robots
-          </div>
+                </div>
+              </div>
+              <div className='flex justify-between items-center w-full px-6 gap-3 mt-4 max-14inch:flex-col'>
+                <Timer cd={CD} onTimeChange={handleTimeChange} />
+                <div onClick={handleSendTime} className='bg-[#fea920] hover:bg-[#fed220] py-3 px-5 transition-all duration-100 w-fit text-center rounded-xl text-lg cursor-pointer min-[2660px]:py-[27px] min-[2408px]:px-5 max-14inch:text-2xl max-14inch:w-full'>
+                  Schedule Robots
+                </div>
+              </div>
+              <div onClick={handleStopRobots} className='bg-[#fea920] hover:bg-[#fed220] py-[27px] mt-4 mx-3 transition-all duration-300 w-[90%] text-center rounded-xl text-2xl cursor-pointer max-14inch:py-3'>
+                Stop all Robots
+              </div>
+            </>
+          }
         </div>
       </div>
     </div>

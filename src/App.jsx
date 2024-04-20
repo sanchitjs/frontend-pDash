@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar/Navbar.jsx';
 import LoginPage from './components/LoginPage/LoginPage.jsx';
 import SignUpPage from './components/SignUpPage/SignUpPage.jsx';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard.jsx';
 import UserDashboard from './components/User/UserDashboard/UserDashboard.jsx';
 import BgImage from './components/BgImage/BgImage.jsx';
-import { BrowserRouter, Route, Routes, useNavigate, Navigate, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Router, useNavigate, Navigate, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import PrivateRoute from './routes/PrivateRoute.jsx';
 import { getCurrentUser, fetchPlantIDAndPlantNameFromFirestore, fetchUserRoleFromFirestore } from './auth'; // Assuming you have these functions
 import NavbarUser from './components/Navbar/NavBarUser.jsx';
@@ -17,7 +17,10 @@ import DailyReport from './components/User/DailyReport/DailyReport.jsx';
 import RoleChecker from './components/RoleChecker/RoleChecker.jsx';
 import Error404 from './components/Error404/Error404.jsx';
 import LoadingBar from 'react-top-loading-bar'
+import { SkeletonTheme } from 'react-loading-skeleton';
 
+// const UserDashboard = lazy(() => import('./components/User/UserDashboard/UserDashboard.jsx'));
+// const DailyReport = lazy(() => import('./components/User/DailyReport/DailyReport.jsx'));
 
 const App = () => {
 
@@ -30,7 +33,7 @@ const App = () => {
     //   return { plantID, plantName, userName };
     // }
     // return null
-    if(currUser) return {currUser};
+    if (currUser) return { currUser };
     else return null;
   }
 
@@ -46,7 +49,7 @@ const App = () => {
           <Route
             path='dashboard'
             loader={loaderFunc}
-            element={<><PrivateRoute setProgress={setProgress} element={() => <UserDashboard setProgress={setProgress}/>} requiredRoles={['user']} /></>}
+            element={<><PrivateRoute setProgress={setProgress} element={() => <UserDashboard setProgress={setProgress} />} requiredRoles={['user']} /></>}
           />
           <Route
             path='daily-report'
@@ -59,6 +62,8 @@ const App = () => {
     )
   )
 
+
+
   return (
     <>
       {/* <LoadingBar
@@ -66,7 +71,9 @@ const App = () => {
         progress={progress}
         // onLoaderFinished={() => setProgress(0)}
       /> */}
-      <RouterProvider router={router} />
+      <SkeletonTheme baseColor="#DFDFDF" highlightColor="#BCBCBC">
+        <RouterProvider router={router} />
+      </SkeletonTheme>
     </>
   );
 
